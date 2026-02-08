@@ -211,14 +211,14 @@
     <div class="ui-overlay">
         <div class="top-bar">
             <div class="logo-container" onclick="resetCam()">
-                <div class="xbox-logo">X</div>
-                <div class="xbox-text">XBOX</div>
+                <div class="xbox-logo">G</div>
+                <div class="xbox-text">GEO K J</div>
             </div>
             <div style="color: #0f0; font-size: 20px; text-shadow: 0 0 10px #0f0;" id="clock">12:00 PM</div>
         </div>
 
         <div class="menu-container">
-            <div class="menu-item selected" onclick="openBlade('live', 0)">
+            <div class="menu-item" onclick="openBlade('live', 0)">
                 <span>🌐</span> About Me
             </div>
             <div class="menu-item" onclick="openBlade('games', 1)">
@@ -538,12 +538,6 @@
                 });
             }, 1000);
         }
-
-        // Bind activation to any user interaction
-        window.addEventListener('click', activateSphere, { once: false });
-        window.addEventListener('keydown', activateSphere, { once: false });
-        window.addEventListener('mousemove', activateSphere, { once: true });
-        window.addEventListener('touchstart', activateSphere, { once: true });
 
         // --- Animation Loop ---
         const clock = new THREE.Clock();
