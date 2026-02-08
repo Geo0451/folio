@@ -270,7 +270,7 @@
             color: 0x00ff00,
             wireframe: true,
             transparent: true,
-            opacity: 0.6
+            opacity: 0.1
         });
         const latticeSphere = new THREE.Mesh(latticeGeometry, latticeMaterial);
         scene.add(latticeSphere);
@@ -441,22 +441,24 @@
         scene.add(ambientParticles);
 
         // Energy Swirl
-        const energyCount = 400;
+        const energyCount = 200;
         const eGeo = new THREE.BufferGeometry();
         const ePos = new Float32Array(energyCount * 3);
         const eData = []; 
         for(let i=0; i<energyCount; i++) {
             const angle = (i / energyCount) * Math.PI * 2;
-            const radius = 1.8 + Math.random() * 0.4;
+            const radius = 1.8 + Math.random() * 3;
             const x = 0;
             const y = 0;
             const z = 0;
-            ePos[i*3] = x; ePos[i*3+1] = y; ePos[i*3+2] = z;
+            ePos[i*3] = x;
+            ePos[i*3+1] = y;
+            ePos[i*3+2] = z;
             eData.push({ 
                 angle, 
                 radius: 0,
                 speed: 0.015 + Math.random() * 0.01, 
-                yOffset: (Math.random() - 0.5) * 0.8, 
+                yOffset: (Math.random() - 0.5) * 5, 
                 currentPos: new THREE.Vector3(x, y, z),
                 targetRadius: radius
             });
@@ -497,8 +499,8 @@
             orb.scale.set(0.01, 0.01, 0.01);
             gsap.to(orb.scale, {
                 x: 1, y: 1, z: 1,
-                duration: 2,
-                ease: "power2.out"
+                duration: 40,
+                ease:   "elastic.out(1, 0.3)"
             });
             
             // Show rings with stagger
@@ -560,7 +562,7 @@
             if (!isActivated) {
                 latticeSphere.rotation.y += 0.003;
                 latticeSphere.rotation.x += 0.001;
-                const breathe = Math.sin(time) * 0.05 + 1;
+                const breathe = Math.sin(time) * 0.4 + 1;
                 latticeSphere.scale.set(breathe, breathe, breathe);
             }
 
@@ -571,7 +573,7 @@
             // Orb & rings (when activated)
             if (isActivated) {
                 orbMaterial.uniforms.time.value = time;
-                orb.rotation.y += 0.005;
+                //orb.rotation.y += 0.5;
                 rings.forEach((r, i) => {
                     r.rotation.x += 0.01 * (i + 1);
                     r.rotation.y += 0.005 * (i + 1);
@@ -626,9 +628,9 @@
         // --- UI Logic ---
         const portfolioData = {
                 'live': { title: 'User Profile', items: [ { label: 'Developer', value: 'Creative Technologist' }, { label: 'Focus', value: 'Interactive Web / 3D' }, { label: 'Level', value: 'Senior' }, { label: 'Gamerscore', value: '9,001 G' }, { label: 'Status', value: 'Looking for Projects' } ] },
-                'games': { title: 'Featured Projects', items: [ { label: 'Xbox Dashboard', value: 'Three.js / GLSL' }, { label: 'Hologram OS', value: 'React / WebGL' }, { label: 'Neon Runner', value: 'Game Engine' }, { label: 'Cyber CV', value: 'Portfolio' } ] },
+                'games': { title: 'Featured Projects', items: [ { label: 'Xbox Dashboard', value: 'Three.js / GLSL' },{ label: 'Boid Sim', value: 'Cellular Automata' }, ] },
                 'media': { title: 'Experience', items: [ { label: '2022-Present', value: 'Senior Dev @ TechCorp' }, { label: '2020-2022', value: 'Creative Engineer @ Agency' }, { label: '2018-2020', value: 'Fullstack Dev @ Startup' } ] },
-                'system': { title: 'System Settings', items: [ { label: 'Email', value: 'dev@null.com' }, { label: 'Twitter', value: '@creative_dev' }, { label: 'GitHub', value: 'github.com/profile' } ] }
+                'system': { title: 'Contact', items: [ { label: 'Email', value: 'dev@null.com' }, { label: 'LinkedIn', value: 'dev@null.com' }, { label: 'Instagram', value: '@creative_dev' }, { label: 'GitHub', value: 'github.com/profile' } ] }
             };
 
         window.openBlade = function(type, index) {
